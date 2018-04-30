@@ -1,24 +1,7 @@
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <asm/uaccess.h>
-
-void move_elements(task_t* found_task, int size);
-int sys_enable_policy (pid_t pid, int size, int password);
-int sys_disable_policy (pid_t pid, int password);
-int sys_set_process_capabilities(pid_t pid, int new_level, int password);
-int sys_get_process_log(pid_t pid, int size, struct forbidden_activity_info* user_mem);
-
 /*
-void move_elements(task_t* found_task, int size){
-      int i;
-      int remainingElements = found_task->forbidden_next_index - size;
-      for(i = 0; i < remainingElements; i++){
-          found_task->forbidden_queue[i] = found_task->forbidden_queue[i+size];
-      }
-      found_task->forbidden_next_index -= size;
-}
-*/
-
 int sys_enable_logging(int size) {
 	if(size < 0 || logger_enabled) {
 		return -EINVAL;
@@ -64,3 +47,4 @@ int sys_get_logger_records(cs_log* user_mem) {
 	
 	return 0;
 }
+*/
