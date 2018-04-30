@@ -450,7 +450,7 @@ asmlinkage void schedule_tail(task_t *prev)
 static inline task_t * context_switch(task_t *prev, task_t *next)
 {
 	//hw2 start
-	if(logger_enabled)
+	if(logger_enabled){
 		cs_log n_log = make_log(prev, next);
 		add_to_logger(n_log);
 	}
