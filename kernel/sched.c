@@ -213,6 +213,8 @@ static inline void rq_unlock(runqueue_t *rq)
 static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 {
 	array->nr_active--;
+	//hw2 start
+	//hw2 end
 	list_del(&p->run_list);
 	if (list_empty(array->queue + p->prio))
 		__clear_bit(p->prio, array->bitmap);
@@ -221,6 +223,8 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 {
 	list_add_tail(&p->run_list, array->queue + p->prio);
+	//hw2 start
+	//hw2 end
 	__set_bit(p->prio, array->bitmap);
 	array->nr_active++;
 	p->array = array;
@@ -269,6 +273,9 @@ static inline void activate_task(task_t *p, runqueue_t *rq)
 		if (p->sleep_avg > MAX_SLEEP_AVG)
 			p->sleep_avg = MAX_SLEEP_AVG;
 		p->prio = effective_prio(p);
+		//hw2 start
+		//@TODO update number of tickets for this process
+		//hw2 end
 	}
 	enqueue_task(p, array);
 	rq->nr_running++;
@@ -781,6 +788,8 @@ void scheduler_tick(int user_tick, int system)
 		dequeue_task(p, rq->active);
 		set_tsk_need_resched(p);
 		p->prio = effective_prio(p);
+		//hw2 start
+		//hw2 end
 		p->first_time_slice = 0;
 		p->time_slice = TASK_TIMESLICE(p);
 
@@ -859,6 +868,8 @@ pick_next_task:
 		array = rq->active;
 		rq->expired_timestamp = 0;
 	}
+	//hw2 start
+	//hw2 end
 
 	idx = sched_find_first_bit(array->bitmap);
 	queue = array->queue + idx;
@@ -1060,6 +1071,8 @@ void set_user_nice(task_t *p, long nice)
 		dequeue_task(p, array);
 	p->static_prio = NICE_TO_PRIO(nice);
 	p->prio = NICE_TO_PRIO(nice);
+	//hw2 start
+	//hw2 end
 	if (array) {
 		enqueue_task(p, array);
 		/*
@@ -1401,6 +1414,8 @@ asmlinkage long sys_sched_yield(void)
 		i = current->prio;
 	else
 		current->prio = i;
+		//hw2 start
+		//hw2 end
 
 	list_add(&current->run_list, array->queue[i].next);
 	__set_bit(i, array->bitmap);
@@ -1607,6 +1622,8 @@ void __init init_idle(task_t *idle, int cpu)
 	deactivate_task(idle, rq);
 	idle->array = NULL;
 	idle->prio = MAX_PRIO;
+	//hw2 start
+	//hw2 end
 	idle->state = TASK_RUNNING;
 	idle->cpu = cpu;
 	double_rq_unlock(idle_rq, rq);
