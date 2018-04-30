@@ -30,7 +30,7 @@ int sys_enable_logging(int size) {
 	}
 	
 	logs.logger_queue = kmalloc(sizeof(cs_log)*size, GFP_KERNEL);
-	if(!logs.logger_queue){
+	if(logs.logger_queue == NULL){
         return -ENOMEM;
     }
 	logs.logger_max_size = size;
