@@ -56,9 +56,11 @@ int sys_get_logger_records(cs_log* user_mem) {
 		return -ENOMEM;
 	}
 	
-	if(copy_to_user(user_mem, logs.logger_queue, logs.logger_max_size * sizeof(cs_log) )){ //return 0 on sucess
+	if(copy_to_user(user_mem, logs.logger_queue, logs.logger_next_index * sizeof(cs_log) )){ //return 0 on sucess
         return -ENOMEM;
     }
+	
+	logger_next_index = 0;
 	
 	return 0;
 }

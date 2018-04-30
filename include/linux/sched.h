@@ -1023,11 +1023,11 @@ logger_t logs = {NULL, 0, 0};
 int logger_enabled = 0;
 
 //(pid_t,pid_t,int,int,int,int,long)
-#define make_logger(prev, next, prev_priority, next_prioroty, prev_policy, next_policy, switch_time) {(prev), (next), (prev_priority), (next_prioroty), (prev_policy), (next_policy), (switch_time)}
+#define make_log(prev, next) {(prev), (next), ((prev)->prio), ((next)->prio), ((prev)->policy), ((next)->policy), (jiffies)}
 
-static inline void add_to_queue(task_t* task, struct cs_log new_logger) {
-	if(logger_max_size != logger_next_index) {
-		(task)->logger_queue[((task)->logger_next_index)++] = (new_logger);
+static inline void add_to_logger(cs_log new_log) {
+	if(logs.logger_next_index < logs.logger_max_size) {
+		logs.logger_queue[(logs.logger_next_index)++] = new_log;
 	}
 }
 
