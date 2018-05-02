@@ -1024,18 +1024,31 @@ logger_t logs = {NULL, 0, 0};
 int logger_enabled = 0;
 int lottery_enabled = 0;
 
-inline cs_log make_log(pid_t prev, pid_t next){
-	cs_log log = 	{(prev),
-					 (next),
-					 ((prev)->prio),
-					 ((next)->prio),
-					 ((prev)->policy),
-					 ((next)->policy),
-					 (jiffies),
-					 (0)};
+
+//(int, int)
+static inline int min_num(int num1, int num2){
+	return (((num1) > (num2)) ? (num1) : (num2));
+}
+
+//(array_t)
+static inline int NT(array_t* array){
+	return min_num((array)->num_tickets, (array)->max_tickets);
+}
+
+static inline cs_log make_log(pid_t* prev, pid_t* next){
+	cs_log log = 	{.prev = *(prev),
+					 .next = *(next),
+					 .prev_priority = (prev)->prio,
+					 .next_prioroty = (next)->prio,
+					 .prev_policy = (prev)->policy,
+					 .next_policy = (next)->policy,
+					 .switch_time = jiffies,
+					 .n_tickets = 0
+					};
 	if(lottery_enabled){
+		logs.prev_policy = SCHED_LOTTERY;
 		log.next_policy = SCHED_LOTTERY;
-		log.n_tickets = (next)->array->num_tickets;
+		log.n_tickets = NT((next)->array);
 	}
 	
 	return log;
@@ -1052,6 +1065,9 @@ static inline void add_to_logger(cs_log new_log) {
 
 //(int,int)
 #define queue_tickets(prio, q_size) ((q_size)*(prio_tickets(prio)))
+
+//(int)
+#define mod_limit(num) ((UINT_MAX/(num))*(num))
 
 //hw2 end
 
