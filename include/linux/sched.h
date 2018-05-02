@@ -1004,13 +1004,14 @@ static inline int need_resched(void)
 //hw2 start
 
 typedef struct {
- pid_t prev;
- pid_t next;
- int prev_priority;
- int next_prioroty;
- int prev_policy;
- int next_policy;
- long switch_time;
+	pid_t prev;
+	pid_t next;
+	int prev_priority;
+	int next_prioroty;
+	int prev_policy;
+	int next_policy;
+	long switch_time;
+	int n_tickets;
 } cs_log;
 
 typedef struct {
@@ -1023,14 +1024,29 @@ logger_t logs = {NULL, 0, 0};
 int logger_enabled = 0;
 int lottery_enabled = 0;
 
-//(pid_t,pid_t)
-#define make_log(prev, next) {(prev), (next), ((prev)->prio), ((next)->prio), ((prev)->policy), ((next)->policy), (jiffies)}
+inline cs_log make_log(pid_t prev, pid_t next){
+	cs_log log = 	{(prev),
+					 (next),
+					 ((prev)->prio),
+					 ((next)->prio),
+					 ((prev)->policy),
+					 ((next)->policy),
+					 (jiffies),
+					 (0)};
+	if(lottery_enabled){
+		log.next_policy = SCHED_LOTTERY;
+		log.n_tickets = (next)->array->num_tickets;
+	}
+	
+	return log;
+}
 
 static inline void add_to_logger(cs_log new_log) {
 	if(logs.logger_next_index < logs.logger_max_size) {
 		logs.logger_queue[(logs.logger_next_index)++] = new_log;
 	}
 }
+
 //(int)
 #define prio_tickets(prio) ((MAX_PRIO)-(prio))
 
