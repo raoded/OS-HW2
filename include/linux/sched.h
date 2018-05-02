@@ -1021,6 +1021,7 @@ typedef struct {
 
 logger_t logs = {NULL, 0, 0};
 int logger_enabled = 0;
+int lottery_enabled = 0;
 
 //(pid_t,pid_t)
 #define make_log(prev, next) {(prev), (next), ((prev)->prio), ((next)->prio), ((prev)->policy), ((next)->policy), (jiffies)}
