@@ -124,6 +124,9 @@ struct prio_array {
 	int nr_active;
 	unsigned long bitmap[BITMAP_SIZE];
 	list_t queue[MAX_PRIO];
+	//hw2 start
+	int num_procs[MAX_PRIO];		//number of processes in each priority queue
+	//hw2 end
 };
 
 /*

@@ -1022,7 +1022,7 @@ typedef struct {
 logger_t logs = {NULL, 0, 0};
 int logger_enabled = 0;
 
-//(pid_t,pid_t,int,int,int,int,long)
+//(pid_t,pid_t)
 #define make_log(prev, next) {(prev), (next), ((prev)->prio), ((next)->prio), ((prev)->policy), ((next)->policy), (jiffies)}
 
 static inline void add_to_logger(cs_log new_log) {
@@ -1030,6 +1030,11 @@ static inline void add_to_logger(cs_log new_log) {
 		logs.logger_queue[(logs.logger_next_index)++] = new_log;
 	}
 }
+//(int)
+#define prio_tickets(prio) ((MAX_PRIO)-(prio))
+
+//(int,int)
+#define queue_tickets(prio, q_size) ((q_size)*(prio_tickets(prio)))
 
 //hw2 end
 
