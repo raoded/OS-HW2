@@ -27,6 +27,10 @@
 #include <linux/completion.h>
 #include <linux/kernel_stat.h>
 
+//hw2 start
+#include <linux/random.h>
+//hw2 end
+
 /*
  * Convert user-nice values [ -20 ... 0 ... 19 ]
  * to static priority [ MAX_RT_PRIO..MAX_PRIO-1 ],
@@ -127,6 +131,7 @@ struct prio_array {
 	//hw2 start
 	int num_procs[MAX_PRIO];		//number of processes in each priority queue
 	int num_tickets;
+	int max_tickets;
 	//hw2 end
 };
 
@@ -772,7 +777,8 @@ void scheduler_tick(int user_tick, int system)
 		 * RR tasks need a special form of timeslice management.
 		 * FIFO tasks have no timeslices.
 		 */
-		if ((p->policy == SCHED_RR) && !--p->time_slice) {
+		//lottery condition is from hw2
+		if ((p->policy == SCHED_RR) && !--p->time_slice && !lottery_enabled) {
 			p->time_slice = TASK_TIMESLICE(p);
 			p->first_time_slice = 0;
 			set_tsk_need_resched(p);
@@ -797,17 +803,17 @@ void scheduler_tick(int user_tick, int system)
 		dequeue_task(p, rq->active);
 		set_tsk_need_resched(p);
 		p->prio = effective_prio(p);
-		//hw2 start
-		//hw2 end
 		p->first_time_slice = 0;
-		p->time_slice = TASK_TIMESLICE(p);
-
-		if (!TASK_INTERACTIVE(p) || EXPIRED_STARVING(rq)) {
+		//hw2 start
+		p->time_slice = lottery_enabled ? MAX_TIMESLICE : TASK_TIMESLICE(p);
+		//lottery condition is from hw2
+		if ((!TASK_INTERACTIVE(p) || EXPIRED_STARVING(rq)) && !lottery_enabled) {
 			if (!rq->expired_timestamp)
 				rq->expired_timestamp = jiffies;
 			enqueue_task(p, rq->expired);
 		} else
 			enqueue_task(p, rq->active);
+		//hw2 end
 	}
 out:
 #if CONFIG_SMP
@@ -829,6 +835,10 @@ asmlinkage void schedule(void)
 	prio_array_t *array;
 	list_t *queue;
 	int idx;
+	//hw2 start
+	unsigned int rand_ticket;
+	int ticket_sum;
+	//hw2 end
 
 	if (unlikely(in_interrupt()))
 		BUG();
@@ -878,11 +888,38 @@ pick_next_task:
 		rq->expired_timestamp = 0;
 	}
 	//hw2 start
-	//hw2 end
-
 	idx = sched_find_first_bit(array->bitmap);
-	queue = array->queue + idx;
-	next = list_entry(queue->next, task_t, run_list);
+	if(!lottery_enabled){
+		queue = array->queue + idx;
+		next = list_entry(queue->next, task_t, run_list);
+	} else {
+		//get a random number in the correct range
+		do {
+			get_random_bytes(&rand_ticket, sizeof(int));
+		} while(rand_ticket > mod_limit(NT(array) - 1));
+		
+		ticket_sum = rand_ticket % (NT(array) - 1);
+		
+		//find the queue that has the right ticket
+		for(;ticket_sum - queue_tickets(idx, array->num_procs[idx]) >= 0; ++idx){
+			ticket_sum -= queue_tickets(idx, array->num_procs[idx]);
+		}
+		
+		//find the process that has the right ticket (set next to it)
+		queue = array->queue + idx;
+		task_t *cur;
+		list_for_each_entry(cur, queue, run_list){
+			if(ticket_sum >= 0){
+				ticket_sum -= prio_tickets(idx);
+				
+				if(ticket_sum < 0){
+					next = cur;
+					//break?
+				}
+			}
+		}
+	}
+	//hw2 end
 
 switch_tasks:
 	prefetch(next);
@@ -1080,8 +1117,7 @@ void set_user_nice(task_t *p, long nice)
 		dequeue_task(p, array);
 	p->static_prio = NICE_TO_PRIO(nice);
 	p->prio = NICE_TO_PRIO(nice);
-	//hw2 start
-	//hw2 end
+
 	if (array) {
 		enqueue_task(p, array);
 		/*
@@ -1423,8 +1459,6 @@ asmlinkage long sys_sched_yield(void)
 		i = current->prio;
 	else
 		current->prio = i;
-		//hw2 start
-		//hw2 end
 
 	list_add(&current->run_list, array->queue[i].next);
 	__set_bit(i, array->bitmap);
@@ -1631,8 +1665,6 @@ void __init init_idle(task_t *idle, int cpu)
 	deactivate_task(idle, rq);
 	idle->array = NULL;
 	idle->prio = MAX_PRIO;
-	//hw2 start
-	//hw2 end
 	idle->state = TASK_RUNNING;
 	idle->cpu = cpu;
 	double_rq_unlock(idle_rq, rq);
