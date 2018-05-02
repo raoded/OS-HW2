@@ -2015,6 +2015,20 @@ int sys_get_logger_records(cs_log* user_mem) {
 	
 	return 0;
 }
+
+int start_lottery_scheduler() {
+	
+}
+
+int start_orig_scheduler() {
+	
+}
+
+void set_max_tickets(int max_tickets) {
+	
+}
+
+
 //hw2 end
 
 
