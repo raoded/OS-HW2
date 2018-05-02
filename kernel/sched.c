@@ -126,6 +126,7 @@ struct prio_array {
 	list_t queue[MAX_PRIO];
 	//hw2 start
 	int num_procs[MAX_PRIO];		//number of processes in each priority queue
+	int num_tickets;
 	//hw2 end
 };
 
@@ -217,6 +218,10 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 {
 	array->nr_active--;
 	//hw2 start
+	if(lottery_enabled){
+		--(array->num_procs[p->prio]);
+		array->num_tickets -= prio_tickets(prio);
+	}
 	//hw2 end
 	list_del(&p->run_list);
 	if (list_empty(array->queue + p->prio))
@@ -227,6 +232,10 @@ static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 {
 	list_add_tail(&p->run_list, array->queue + p->prio);
 	//hw2 start
+	if(lottery_enabled){
+		++(array->num_procs[p->prio]);
+		array->num_tickets += prio_tickets(prio);
+	}
 	//hw2 end
 	__set_bit(p->prio, array->bitmap);
 	array->nr_active++;
@@ -276,9 +285,6 @@ static inline void activate_task(task_t *p, runqueue_t *rq)
 		if (p->sleep_avg > MAX_SLEEP_AVG)
 			p->sleep_avg = MAX_SLEEP_AVG;
 		p->prio = effective_prio(p);
-		//hw2 start
-		//@TODO update number of tickets for this process
-		//hw2 end
 	}
 	enqueue_task(p, array);
 	rq->nr_running++;
