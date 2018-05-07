@@ -355,6 +355,10 @@ struct task_struct {
 	task_t *next_task, *prev_task;
 
 	struct mm_struct *mm, *active_mm;
+	
+	//hw2 start
+	int orig_static_prio;
+	//hw2 end
 
 
 /* task state */
@@ -1018,10 +1022,11 @@ typedef struct {
 	cs_log* logger_queue;
 	int logger_max_size;
 	int logger_next_index;
+	int logger_enabled;
 } logger_t;
 
-logger_t logs = {NULL, 0, 0};
-int logger_enabled = 0;
+logger_t logs = {.logger_queue = NULL};
+
 int lottery_enabled = 0;
 
 
@@ -1067,7 +1072,7 @@ static inline void add_to_logger(cs_log new_log) {
 #define queue_tickets(prio, q_size) ((q_size)*(prio_tickets(prio)))
 
 //(int)
-#define mod_limit(num) ((UINT_MAX/(num))*(num))
+#define mod_limit(num) ((UINT_MAX)-(UINT_MAX%(num)))
 
 //hw2 end
 
