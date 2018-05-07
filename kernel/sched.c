@@ -1452,14 +1452,14 @@ asmlinkage long sys_sched_yield(void)
 	
 	list_del(&current->run_list);
 	
-	if(lottery_enabled){
-		--(array->num_procs[p->prio]);
-		array->num_tickets -= prio_tickets(prio);
-	}
-	
 	if (!list_empty(array->queue + current->prio)) {
 		list_add(&current->run_list, array->queue[current->prio].next);
 		goto out_unlock;
+	}
+	
+	if(lottery_enabled){
+		--(array->num_procs[p->prio]);
+		array->num_tickets -= prio_tickets(prio);
 	}
 	__clear_bit(current->prio, array->bitmap);
 
@@ -1470,16 +1470,15 @@ asmlinkage long sys_sched_yield(void)
 	else
 		current->prio = i;
 
-	list_add(&current->run_list, array->queue[i].next);
-	
-	__set_bit(i, array->bitmap);
-
-out_unlock:
+	list_add(&current->run_list, array->queue[i].next);	
 	if(lottery_enabled){
 		++(array->num_procs[i]);
 		array->num_tickets += prio_tickets(i);
 	}
 	//hw2 end
+	__set_bit(i, array->bitmap);
+
+out_unlock:
 	spin_unlock(&rq->lock);
 
 	schedule();
