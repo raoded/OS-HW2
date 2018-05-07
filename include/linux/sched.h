@@ -358,6 +358,7 @@ struct task_struct {
 	
 	//hw2 start
 	int orig_static_prio;
+	unsigned long orig_policy;
 	//hw2 end
 
 
@@ -1048,14 +1049,8 @@ static inline cs_log make_log(pid_t* prev, pid_t* next){
 					 .prev_policy = (prev)->policy,
 					 .next_policy = (next)->policy,
 					 .switch_time = jiffies,
-					 .n_tickets = 0
+					 .n_tickets = lottery_enabled ? NT((next)->array) : 0;
 					};
-	if(lottery_enabled){
-		logs.prev_policy = SCHED_LOTTERY;
-		log.next_policy = SCHED_LOTTERY;
-		log.n_tickets = NT((next)->array);
-	}
-	
 	return log;
 }
 
