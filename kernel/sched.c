@@ -1691,6 +1691,16 @@ void __init sched_init(void)
 		rq->expired = rq->arrays + 1;
 		spin_lock_init(&rq->lock);
 		INIT_LIST_HEAD(&rq->migration_queue);
+		
+		//hw2 start
+		rq->active->num_procs = {0};		
+		rq->active->num_tickets = 0;
+		rq->active->max_tickets = 0;
+		
+		rq->expired->num_procs = {0};		
+		rq->expired->num_tickets = 0;
+		rq->expired->max_tickets = 0;
+		//hw2 end
 
 		for (j = 0; j < 2; j++) {
 			array = rq->arrays + j;
@@ -2020,6 +2030,10 @@ int sys_get_logger_records(cs_log* user_mem) {
 int start_lottery_scheduler() {
 	runqueue_t *rq;
 	
+	//check if its already enabled
+	if(lottery_enabled){
+		return -EINVAL;
+	}
 	
 	
 	
@@ -2040,6 +2054,10 @@ int start_lottery_scheduler() {
 int start_orig_scheduler() {
 	runqueue_t *rq;
 	
+	//check if its already the original
+	if(!lottery_enabled){
+		return -EINVAL;
+	}
 	
 	
 	
