@@ -471,7 +471,7 @@ asmlinkage void schedule_tail(task_t *prev)
 static inline task_t * context_switch(task_t *prev, task_t *next)
 {
 	//hw2 start
-	if(logger_enabled){
+	if(logs.logger_enabled){
 		cs_log n_log = make_log(prev, next);
 		add_to_logger(n_log);
 	}
@@ -896,9 +896,9 @@ pick_next_task:
 		//get a random number in the correct range
 		do {
 			get_random_bytes(&rand_ticket, sizeof(int));
-		} while(rand_ticket > mod_limit(NT(array) - 1));
+		} while(rand_ticket > mod_limit(NT(array)));
 		
-		ticket_sum = rand_ticket % (NT(array) - 1);
+		ticket_sum = (int)(rand_ticket % (NT(array)));
 		
 		//find the queue that has the right ticket
 		for(;ticket_sum - queue_tickets(idx, array->num_procs[idx]) >= 0; ++idx){
@@ -1203,7 +1203,8 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	runqueue_t *rq;
 	task_t *p;
 
-	if (!param || pid < 0)
+	//hw2 changes in this condition (last 2 parts)
+	if (!param || pid < 0 || policy == SCHED_LOTTERY || lottery_enabled)
 		goto out_nounlock;
 
 	retval = -EFAULT;
@@ -1971,7 +1972,7 @@ int ll_copy_from_user(void *to, const void *from_user, unsigned long len)
 
 //hw2 start
 int sys_enable_logging(int size) {
-	if(size < 0 || logger_enabled) {
+	if(size < 0 || logs.logger_enabled) {
 		return -EINVAL;
 	}
 
@@ -1987,17 +1988,17 @@ int sys_enable_logging(int size) {
 	logs.logger_max_size = size;
 	logs.logger_next_index = 0
 	
-	logger_enabled = 1;
+	logs.logger_enabled = 1;
 	
     return 0;
 }
 
 int sys_disable_logging () {
-    if(!logger_enabled) {
+    if(!logs.logger_enabled) {
 		return -EINVAL;
 	}
 	
-	logger_enabled = 0;
+	logs.logger_enabled = 0;
 
     return 0;
 }
@@ -2017,14 +2018,60 @@ int sys_get_logger_records(cs_log* user_mem) {
 }
 
 int start_lottery_scheduler() {
+	runqueue_t *rq;
+	
+	
+	
+	
+	
+	//all changes to the runqueue should be done between the lock and the unlock
+	rq = this_rq_lock()
+	
+	
+	
+	
+	
+	
+	
+	rq_unlock(rq);
 	
 }
 
 int start_orig_scheduler() {
+	runqueue_t *rq;
 	
+	
+	
+	
+	
+	//all changes to the runqueue should be done between the lock and the unlock
+	rq = this_rq_lock()
+	
+	
+	
+	
+	
+	
+	
+	rq_unlock(rq);
 }
 
 void set_max_tickets(int max_tickets) {
+	runqueue_t *rq;
+	
+	
+	
+	
+	//all changes to the runqueue should be done between the lock and the unlock
+	rq = this_rq_lock()
+	
+	
+	
+	
+	
+	
+	
+	rq_unlock(rq);
 	
 }
 
