@@ -223,7 +223,7 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 {
 	array->nr_active--;
 	//hw2 start
-	if(lottery_enabled){
+	if(lottery_enabled){	//@TODO maybe we should do it everytime no matter if the lottery is enabled
 		--(array->num_procs[p->prio]);
 		array->num_tickets -= prio_tickets(prio);
 	}
@@ -237,7 +237,7 @@ static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 {
 	list_add_tail(&p->run_list, array->queue + p->prio);
 	//hw2 start
-	if(lottery_enabled){
+	if(lottery_enabled){	//@TODO maybe we should do it everytime no matter if the lottery is enabled
 		++(array->num_procs[p->prio]);
 		array->num_tickets += prio_tickets(prio);
 	}
@@ -777,8 +777,7 @@ void scheduler_tick(int user_tick, int system)
 		 * RR tasks need a special form of timeslice management.
 		 * FIFO tasks have no timeslices.
 		 */
-		//lottery condition is from hw2
-		if ((p->policy == SCHED_RR) && !--p->time_slice && !lottery_enabled) {
+		if ((p->policy == SCHED_RR) && !--p->time_slice) {
 			p->time_slice = TASK_TIMESLICE(p);
 			p->first_time_slice = 0;
 			set_tsk_need_resched(p);
