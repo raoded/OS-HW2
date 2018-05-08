@@ -2053,7 +2053,7 @@ int start_lottery_scheduler() {
 	
 	
 	//all changes to the runqueue should be done between the lock and the unlock
-	rq = this_rq_lock()
+	rq = this_rq_lock();
 	
 	
 	
@@ -2077,7 +2077,7 @@ int start_orig_scheduler() {
 	
 	
 	//all changes to the runqueue should be done between the lock and the unlock
-	rq = this_rq_lock()
+	rq = this_rq_lock();
 	
 	
 	
@@ -2095,7 +2095,7 @@ void set_max_tickets(int max_tickets) {
 	
 	
 	//all changes to the runqueue should be done between the lock and the unlock
-	rq = this_rq_lock()
+	rq = this_rq_lock();
 	
 	
 	
