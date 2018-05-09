@@ -2077,21 +2077,16 @@ int start_lottery_scheduler(void) {
 	rq = this_rq_lock();
 	
 	/*
+	for each task{
+		save old policy
+		change policy to SCHED_LOTTERY
+		change time_slice to MAX_TIMESLICE
+	}
+	
 	for each task in expired{
-		save old policy
-		change policy to SCHED_LOTTERY
-		change time_slice to MAX_TIMESLICE
+		dequeue task from expired
+		enqueue task into active 
 	}
-	
-	for each task in active{
-		save old policy
-		change policy to SCHED_LOTTERY
-		change time_slice to MAX_TIMESLICE
-		dequeue task from active
-		enqueue task into expired 
-	}
-	
-	@TODO maybe we should also change other tasks too? (those in waiting queues and so on)
 	
 	@TODO call schedule or set_need_resched
 	*/
@@ -2114,12 +2109,10 @@ int start_orig_scheduler(void) {
 	rq = this_rq_lock();
 	
 	/*
-	for each task in active{
+	for each task{
 		restore old policy
 		recalculate time slice
 	}
-	
-	@TODO maybe we should also change other tasks too? (those in waiting queues and so on
 	
 	@TODO call schedule or set_need_resched
 	*/
