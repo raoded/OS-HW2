@@ -357,7 +357,6 @@ struct task_struct {
 	struct mm_struct *mm, *active_mm;
 	
 	//hw2 start
-	int orig_static_prio;
 	unsigned long orig_policy;
 	//hw2 end
 

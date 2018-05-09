@@ -2047,7 +2047,6 @@ void change_task_to_lottery(task_t *p){
 		return;
 	}
 	
-	p->orig_static_prio = p->static_prio;
 	p->orig_policy = p->policy
 	
 	p->policy = SCHED_LOTTERY;
@@ -2059,7 +2058,6 @@ void change_task_to_orig(task_t *p){
 		return;
 	}
 	
-	p->static_prio = p->orig_static_prio;
 	p->policy = p->orig_policy;
 	
 	p->time_slice = TASK_TIMESLICE(p);
@@ -2085,14 +2083,12 @@ int start_lottery_scheduler(void) {
 	/*
 	for each task in active{
 		save old policy
-		save old static_prio
 		change policy to SCHED_LOTTERY
 		change time_slice to MAX_TIMESLICE
 	}
 	
 	for each task in expired{
 		save old policy
-		save old static_prio
 		change policy to SCHED_LOTTERY
 		change time_slice to MAX_TIMESLICE
 		dequeue task from expired
@@ -2120,7 +2116,6 @@ int start_orig_scheduler(void) {
 	/*
 	for each task in active{
 		restore old policy
-		restore old static_prio
 		recalculate time slice
 	}
 	*/
