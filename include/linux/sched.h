@@ -1012,7 +1012,7 @@ typedef struct {
 	pid_t prev;
 	pid_t next;
 	int prev_priority;
-	int next_prioroty;
+	int next_priority;
 	int prev_policy;
 	int next_policy;
 	long switch_time;
@@ -1048,7 +1048,7 @@ static inline cs_log make_log(pid_t* prev, pid_t* next){
 	cs_log log = 	{.prev = *(prev),
 					 .next = *(next),
 					 .prev_priority = (prev)->prio,
-					 .next_prioroty = (next)->prio,
+					 .next_priority = (next)->prio,
 					 .prev_policy = (prev)->policy,
 					 .next_policy = (next)->policy,
 					 .switch_time = jiffies,
