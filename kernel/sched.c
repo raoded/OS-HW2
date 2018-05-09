@@ -2048,9 +2048,6 @@ int start_lottery_scheduler() {
 		return -EINVAL;
 	}
 	
-	
-	
-	
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
 	
@@ -2071,9 +2068,6 @@ int start_orig_scheduler() {
 	if(!lottery_enabled){
 		return -EINVAL;
 	}
-	
-	
-	
 	
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
