@@ -1041,8 +1041,6 @@ static inline int NT(array_t* array){
 	if((array)->max_tickets <= 0){
 		return ((array)->num_tickets);
 	}
-	
-	
 	return min_num((array)->num_tickets, (array)->max_tickets);
 }
 
