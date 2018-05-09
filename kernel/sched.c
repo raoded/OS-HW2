@@ -1203,6 +1203,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	task_t *p;
 
 	//hw2 changes in this condition (last 2 parts)
+	//@TODO we can't just block it all, be more precise (delete last 2 parts)
 	if (!param || pid < 0 || policy == SCHED_LOTTERY || lottery_enabled)
 		goto out_nounlock;
 
