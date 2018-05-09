@@ -2042,7 +2042,36 @@ int sys_get_logger_records(cs_log* user_mem) {
 	return 0;
 }
 
-int start_lottery_scheduler() {
+void change_task_to_lottery(task_t *p){
+	if(p == NULL){
+		return;
+	}
+	
+	p->orig_static_prio = p->static_prio;
+	p->orig_policy = p->policy
+	
+	p->policy = SCHED_LOTTERY;
+	p->time_slice = MAX_TIMESLICE;
+}
+
+void change_task_to_orig(task_t *p){
+	if(p == NULL){
+		return;
+	}
+	
+	p->static_prio = p->orig_static_prio;
+	p->policy = p->orig_policy;
+	
+	p->time_slice = TASK_TIMESLICE(p);
+	
+	
+	
+	
+}
+
+
+
+int start_lottery_scheduler(void) {
 	runqueue_t *rq;
 	
 	//check if its already enabled
@@ -2077,7 +2106,7 @@ int start_lottery_scheduler() {
 	
 }
 
-int start_orig_scheduler() {
+int start_orig_scheduler(void) {
 	runqueue_t *rq;
 	
 	//check if its already the original
