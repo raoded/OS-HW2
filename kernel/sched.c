@@ -1456,6 +1456,7 @@ asmlinkage long sys_sched_yield(void)
 		goto out_unlock;
 	}
 	
+	//@TODO maybe we should do this even when the lottery is not enabled
 	if(lottery_enabled){
 		--(array->num_procs[p->prio]);
 		array->num_tickets -= prio_tickets(prio);
@@ -1469,7 +1470,8 @@ asmlinkage long sys_sched_yield(void)
 	else
 		current->prio = i;
 
-	list_add(&current->run_list, array->queue[i].next);	
+	list_add(&current->run_list, array->queue[i].next);
+	//@TODO maybe we should do this even when the lottery is not enabled
 	if(lottery_enabled){
 		++(array->num_procs[i]);
 		array->num_tickets += prio_tickets(i);
