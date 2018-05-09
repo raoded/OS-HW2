@@ -2094,6 +2094,8 @@ int start_lottery_scheduler(void) {
 	
 	lottery_enabled = 1;
 	
+	//@TODO call schedule or set_need_resched
+	
 	rq_unlock(rq);
 	
 }
@@ -2118,7 +2120,7 @@ int start_orig_scheduler(void) {
 	
 	lottery_enabled = 0;
 	
-	
+	//@TODO call schedule or set_need_resched
 	
 	rq_unlock(rq);
 }
@@ -2130,6 +2132,8 @@ void set_max_tickets(int max_tickets) {
 	rq = this_rq_lock();
 	
 	rq->active->max_tickets = max_tickets;
+	
+	//@TODO call schedule or set_need_resched
 	
 	rq_unlock(rq);
 	
