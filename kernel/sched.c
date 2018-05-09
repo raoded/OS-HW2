@@ -2061,10 +2061,6 @@ void change_task_to_orig(task_t *p){
 	p->policy = p->orig_policy;
 	
 	p->time_slice = TASK_TIMESLICE(p);
-	
-	
-	
-	
 }
 
 
