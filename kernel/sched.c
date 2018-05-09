@@ -2042,29 +2042,6 @@ int sys_get_logger_records(cs_log* user_mem) {
 	return 0;
 }
 
-void change_task_to_lottery(task_t *p){
-	if(p == NULL){
-		return;
-	}
-	
-	p->orig_policy = p->policy
-	
-	p->policy = SCHED_LOTTERY;
-	p->time_slice = MAX_TIMESLICE;
-}
-
-void change_task_to_orig(task_t *p){
-	if(p == NULL){
-		return;
-	}
-	
-	p->policy = p->orig_policy;
-	
-	p->time_slice = TASK_TIMESLICE(p);
-}
-
-
-
 int start_lottery_scheduler(void) {
 	runqueue_t *rq;
 	
@@ -2081,15 +2058,28 @@ int start_lottery_scheduler(void) {
 		save old policy
 		change policy to SCHED_LOTTERY
 		change time_slice to MAX_TIMESLICE
+		if(task->array == rq->expired){
+			dequeue task from expired
+			enqueue task into active 
+		}
 	}
-	
-	for each task in expired{
-		dequeue task from expired
-		enqueue task into active 
-	}
-	
-	@TODO call schedule or set_need_resched
 	*/
+	
+	task_t *p;
+	
+	for_each_task(p){
+		p->orig_policy = p->policy
+		p->policy = SCHED_LOTTERY;
+		p->time_slice = MAX_TIMESLICE;
+		
+		if(task->array == rq->expired){
+			dequeue_task(p, rq->expired);
+			enqueue_task(p, rq->active);
+		}
+	}
+	
+	set_need_resched();
+	
 	
 	lottery_enabled = 1;
 	
@@ -2113,9 +2103,16 @@ int start_orig_scheduler(void) {
 		restore old policy
 		recalculate time slice
 	}
-	
-	@TODO call schedule or set_need_resched
 	*/
+	
+	task_t *p;
+	
+	for_each_task(p){
+		p->policy = p->orig_policy;
+		p->time_slice = TASK_TIMESLICE(p);
+	}
+	
+	set_need_resched();
 	
 	lottery_enabled = 0;
 	
@@ -2130,7 +2127,7 @@ void set_max_tickets(int max_tickets) {
 	
 	rq->active->max_tickets = max_tickets;
 	
-	//@TODO call schedule or set_need_resched
+	set_need_resched();
 	
 	rq_unlock(rq);
 	
