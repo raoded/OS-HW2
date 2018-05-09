@@ -2089,18 +2089,11 @@ int start_orig_scheduler() {
 
 void set_max_tickets(int max_tickets) {
 	runqueue_t *rq;
-	
-	
-	
-	
+
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
 	
-	
-	
-	
-	
-	
+	rq->active->max_tickets = max_tickets;
 	
 	rq_unlock(rq);
 	
