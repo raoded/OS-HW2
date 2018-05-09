@@ -2051,11 +2051,25 @@ int start_lottery_scheduler() {
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
 	
+	/*
+	for each task in active{
+		save old policy
+		save old static_prio
+		change policy to SCHED_LOTTERY
+		change time_slice to MAX_TIMESLICE
+	}
 	
+	for each task in expired{
+		save old policy
+		save old static_prio
+		change policy to SCHED_LOTTERY
+		change time_slice to MAX_TIMESLICE
+		dequeue task from expired
+		enqueue task into active
+	}
+	*/
 	
-	
-	
-	
+	lottery_enabled = 1;
 	
 	rq_unlock(rq);
 	
@@ -2072,9 +2086,15 @@ int start_orig_scheduler() {
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
 	
+	/*
+	for each task in active{
+		restore old policy
+		restore old static_prio
+		recalculate time slice
+	}
+	*/
 	
-	
-	
+	lottery_enabled = 0;
 	
 	
 	
