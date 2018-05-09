@@ -2090,6 +2090,8 @@ int start_lottery_scheduler(void) {
 		dequeue task from expired
 		enqueue task into active
 	}
+	
+	@TODO maybe we should also change other tasks too? (those in waiting queues and so on)
 	*/
 	
 	lottery_enabled = 1;
@@ -2116,6 +2118,8 @@ int start_orig_scheduler(void) {
 		restore old policy
 		recalculate time slice
 	}
+	
+	@TODO maybe we should also change other tasks too? (those in waiting queues and so on)
 	*/
 	
 	lottery_enabled = 0;
