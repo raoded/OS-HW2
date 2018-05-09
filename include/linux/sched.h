@@ -1072,7 +1072,7 @@ static inline void add_to_logger(cs_log new_log) {
 #define queue_tickets(prio, q_size) ((q_size)*(prio_tickets(prio)))
 
 //(int)
-#define mod_limit(num) ((UINT_MAX)-(UINT_MAX%(num)))
+#define mod_limit(num) ((UINT_MAX)-((UINT_MAX)%((unsigned int) num)))
 
 //hw2 end
 
