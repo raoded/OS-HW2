@@ -225,7 +225,7 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 	//hw2 start
 	if(lottery_enabled){	//@TODO maybe we should do it everytime no matter if the lottery is enabled
 		--(array->num_procs[p->prio]);
-		array->num_tickets -= prio_tickets(prio);
+		array->num_tickets -= prio_tickets(prio); //what is 'prio'? did you mean 'p->prio'? 
 	}
 	//hw2 end
 	list_del(&p->run_list);
@@ -914,6 +914,7 @@ pick_next_task:
 				if(ticket_sum < 0){
 					next = cur;
 					//break?
+					// I dont think we need a break here, we called schedule() to make a switch..therefore we need it to heppen, i guess.
 				}
 			}
 		}
@@ -1457,6 +1458,10 @@ asmlinkage long sys_sched_yield(void)
 	}
 	
 	//@TODO maybe we should do this even when the lottery is not enabled
+	/*I think that updating every process when enabeling is quite finite proccess and a fast one
+	  so in these terms, doing the update of tickets even with the LOTTERY not enabled is expensive.
+	  In this homework it doesn't really matter, I guess. If its easy and works then we'll keep it.
+	*/
 	if(lottery_enabled){
 		--(array->num_procs[p->prio]);
 		array->num_tickets -= prio_tickets(prio);
