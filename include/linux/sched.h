@@ -1038,18 +1038,17 @@ static inline int min_num(int num1, int num2){
 //(prio_array_t)
 #define NT(array) (min_num((array)->num_tickets, ((array)->max_tickets <= 0) ? (array)->num_tickets : (array)->max_tickets))
 
-static inline cs_log make_log(task_t *prev, task_t *next){
-	cs_log log = 	{.prev = (prev)->pid,
-					 .next = (next)->pid,
-					 .prev_priority = (prev)->prio,
-					 .next_priority = (next)->prio,
-					 .prev_policy = (prev)->policy,
-					 .next_policy = (next)->policy,
-					 .switch_time = jiffies,
-					 .n_tickets = lottery_enabled ? NT((next)->array) : 0
-					};
-	return log;
-}
+//(task_t*, task_t*)
+#define make_log(prev, next)												\
+					{.prev = (prev)->pid,									\
+					 .next = (next)->pid,									\
+					 .prev_priority = (prev)->prio,							\
+					 .next_priority = (next)->prio,							\
+					 .prev_policy = (prev)->policy,							\
+					 .next_policy = (next)->policy,							\
+					 .switch_time = jiffies,								\
+					 .n_tickets = lottery_enabled ? NT((next)->array) : 0	\
+					}
 
 static inline void add_to_logger(cs_log new_log) {
 	if(logs.logger_next_index < logs.logger_max_size) {
