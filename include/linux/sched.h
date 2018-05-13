@@ -1035,8 +1035,8 @@ static inline int min_num(int num1, int num2){
 	return (((num1) > (num2)) ? (num1) : (num2));
 }
 
-//(array_t)
-static inline int NT(array_t* array){
+//(prio_array_t)
+static inline int NT(prio_array_t* array){
 	return min_num((array)->num_tickets, ((array)->max_tickets <= 0) ? (array)->num_tickets : (array)->max_tickets);
 }
 
