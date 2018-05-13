@@ -836,7 +836,6 @@ asmlinkage void schedule(void)
 	//hw2 start
 	unsigned int rand_ticket;
 	int ticket_sum;
-	task_t *cur;
 	//hw2 end
 
 	if (unlikely(in_interrupt()))
@@ -906,7 +905,8 @@ pick_next_task:
 		
 		//find the process that has the right ticket (set next to it)
 		queue = array->queue + idx;
-		list_for_each_entry(cur, queue->next, run_list) {
+		task_t *cur;
+		list_for_each_entry(cur, queue, run_list) {
 			if(ticket_sum >= 0){
 				ticket_sum -= prio_tickets(idx);
 				
