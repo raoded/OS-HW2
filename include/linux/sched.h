@@ -1036,9 +1036,7 @@ static inline int min_num(int num1, int num2){
 }
 
 //(prio_array_t)
-static inline int NT(prio_array_t* array){
-	return min_num((array)->num_tickets, ((array)->max_tickets <= 0) ? (array)->num_tickets : (array)->max_tickets);
-}
+#define NT(prio_array_t* array) (min_num((array)->num_tickets, ((array)->max_tickets <= 0) ? (array)->num_tickets : (array)->max_tickets))
 
 static inline cs_log make_log(task_t *prev, task_t *next){
 	cs_log log = 	{.prev = (prev)->pid,
