@@ -225,7 +225,7 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 	//hw2 start
 	//update new structures
 	--(array->num_procs[p->prio]);
-	array->num_tickets -= prio_tickets(prio);	//what is 'prio'? did you mean 'p->prio'? 
+	array->num_tickets -= prio_tickets(p->prio);
 	//hw2 end
 	list_del(&p->run_list);
 	if (list_empty(array->queue + p->prio))
@@ -238,7 +238,7 @@ static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 	//hw2 start
 	//update new structures
 	++(array->num_procs[p->prio]);
-	array->num_tickets += prio_tickets(prio);
+	array->num_tickets += prio_tickets(p->prio);
 	//hw2 end
 	__set_bit(p->prio, array->bitmap);
 	array->nr_active++;
@@ -1466,7 +1466,7 @@ asmlinkage long sys_sched_yield(void)
 	  In this homework it doesn't really matter, I guess. If its easy and works then we'll keep it.
 	*/
 	--(array->num_procs[p->prio]);
-	array->num_tickets -= prio_tickets(prio);
+	array->num_tickets -= prio_tickets(p->prio);
 	
 	__clear_bit(current->prio, array->bitmap);
 
