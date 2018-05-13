@@ -912,7 +912,7 @@ pick_next_task:
 				if(ticket_sum < 0){
 					next = cur;
 				}
-			} //else break? //I dont think we need a break here, we called schedule() to make a switch..therefore we need it to heppen, i guess.
+			} else break;	//no need to go for the rest of the queue
 		}
 	}
 	//hw2 end
