@@ -1200,9 +1200,8 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	runqueue_t *rq;
 	task_t *p;
 
-	//hw2 changes in this condition (last 2 parts)
-	//@TODO we can't just block it all, be more precise (delete last 1 part)
-	if (!param || pid < 0 || policy == SCHED_LOTTERY || lottery_enabled)
+	//hw2 changes in this condition (last 1 condition)
+	if (!param || pid < 0 || policy == SCHED_LOTTERY)
 		goto out_nounlock;
 
 	retval = -EFAULT;
@@ -1230,8 +1229,9 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 		policy = p->policy;
 	else {
 		retval = -EINVAL;
-		if (policy != SCHED_FIFO && policy != SCHED_RR &&
-				policy != SCHED_OTHER)
+		//hw2 change in the last condition (should not change policy when lottery is enabled)
+		if ((policy != SCHED_FIFO && policy != SCHED_RR &&
+				policy != SCHED_OTHER) || lottery_enabled)
 			goto out_unlock;
 	}
 
@@ -1244,6 +1244,11 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 		goto out_unlock;
 	if ((policy == SCHED_OTHER) != (lp.sched_priority == 0))
 		goto out_unlock;
+	//hw2 start
+	//let's forbid changes between real time priorities and normal ones
+	if(change_rt_normal(lp.sched_priority, p->priority) && lottery_enabled)
+		goto out_unlock;
+	//hw2 end
 
 	retval = -EPERM;
 	if ((policy == SCHED_FIFO || policy == SCHED_RR) &&

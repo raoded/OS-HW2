@@ -1071,6 +1071,10 @@ static inline void add_to_logger(cs_log new_log) {
 //(int)
 #define mod_limit(num) ((UINT_MAX)-((UINT_MAX)%((unsigned int) num)))
 
+//(int,int)
+//is true if a priority is changed from prio < 100 to prio >= 100 or vice-versa
+#define change_rt_normal(prio1, prio2) (((prio1) < 100 && (prio2) >= 100) || ((prio2) < 100 && (prio1) >= 100))
+
 //hw2 end
 
 #endif /* __KERNEL__ */
