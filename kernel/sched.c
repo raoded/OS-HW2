@@ -223,10 +223,9 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 {
 	array->nr_active--;
 	//hw2 start
-	if(lottery_enabled){	//@TODO maybe we should do it everytime no matter if the lottery is enabled
-		--(array->num_procs[p->prio]);
-		array->num_tickets -= prio_tickets(prio);
-	}
+	//update new structures
+	--(array->num_procs[p->prio]);
+	array->num_tickets -= prio_tickets(prio);
 	//hw2 end
 	list_del(&p->run_list);
 	if (list_empty(array->queue + p->prio))
@@ -237,10 +236,9 @@ static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 {
 	list_add_tail(&p->run_list, array->queue + p->prio);
 	//hw2 start
-	if(lottery_enabled){	//@TODO maybe we should do it everytime no matter if the lottery is enabled
-		++(array->num_procs[p->prio]);
-		array->num_tickets += prio_tickets(prio);
-	}
+	//update new structures
+	++(array->num_procs[p->prio]);
+	array->num_tickets += prio_tickets(prio);
 	//hw2 end
 	__set_bit(p->prio, array->bitmap);
 	array->nr_active++;
@@ -1457,11 +1455,10 @@ asmlinkage long sys_sched_yield(void)
 		goto out_unlock;
 	}
 	
-	//@TODO maybe we should do this even when the lottery is not enabled
-	if(lottery_enabled){
-		--(array->num_procs[p->prio]);
-		array->num_tickets -= prio_tickets(prio);
-	}
+	//update new structures
+	--(array->num_procs[p->prio]);
+	array->num_tickets -= prio_tickets(prio);
+	
 	__clear_bit(current->prio, array->bitmap);
 
 	i = sched_find_first_bit(array->bitmap);
@@ -1472,11 +1469,10 @@ asmlinkage long sys_sched_yield(void)
 		current->prio = i;
 
 	list_add(&current->run_list, array->queue[i].next);
-	//@TODO maybe we should do this even when the lottery is not enabled
-	if(lottery_enabled){
-		++(array->num_procs[i]);
-		array->num_tickets += prio_tickets(i);
-	}
+	//update new structures
+	++(array->num_procs[i]);
+	array->num_tickets += prio_tickets(i);
+	
 	//hw2 end
 	__set_bit(i, array->bitmap);
 
