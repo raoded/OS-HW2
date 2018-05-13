@@ -911,9 +911,8 @@ pick_next_task:
 				
 				if(ticket_sum < 0){
 					next = cur;
-					//break?
 				}
-			}
+			} //else break?
 		}
 	}
 	//hw2 end
