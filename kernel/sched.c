@@ -906,7 +906,7 @@ pick_next_task:
 		//find the process that has the right ticket (set next to it)
 		queue = array->queue + idx;
 		task_t *cur;
-		list_for_each_entry(cur, queue, run_list){
+		list_for_each_entry(cur, queue, run_list) {
 			if(ticket_sum >= 0){
 				ticket_sum -= prio_tickets(idx);
 				
