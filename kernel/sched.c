@@ -2081,12 +2081,18 @@ int start_lottery_scheduler(void) {
 	
 	set_need_resched();
 	
-	//@TODO maybe add a log for the change in policies?
-	
 	lottery_enabled = 1;
+	
+	//@TODO maybe add a log for the change in policies?
+	/* IMPLEMENTATION SUGGESTION
+	cs_log log = make_log(current, current);
+	log.prev_policy = current->orig_policy;
+	add_to_logger(log);
+	*/
 	
 	rq_unlock(rq);
 	
+	return 0;
 }
 
 int start_orig_scheduler(void) {
@@ -2116,11 +2122,18 @@ int start_orig_scheduler(void) {
 	
 	set_need_resched();
 	
-	//@TODO maybe add a log for the change in policies?
-	
 	lottery_enabled = 0;
 	
+	//@TODO maybe add a log for the change in policies?
+	/* IMPLEMENTATION SUGGESTION
+	cs_log log = make_log(current, current);
+	log.prev_policy = SCHED_LOTTERY;
+	add_to_logger(log);
+	*/
+	
 	rq_unlock(rq);
+	
+	return 0;
 }
 
 void set_max_tickets(int max_tickets) {
@@ -2134,9 +2147,14 @@ void set_max_tickets(int max_tickets) {
 	set_need_resched();
 	
 	//@TODO maybe add a log for the change in NT?
+	/* IMPLEMENTATION SUGGESTION
+	cs_log log = make_log(current, current);
+	add_to_logger(log);
+	*/
 	
 	rq_unlock(rq);
 	
+	return 0;
 }
 
 
