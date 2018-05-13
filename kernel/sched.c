@@ -2081,6 +2081,7 @@ int start_lottery_scheduler(void) {
 	
 	set_need_resched();
 	
+	//@TODO maybe add a log for the change in policies?
 	
 	lottery_enabled = 1;
 	
@@ -2115,6 +2116,8 @@ int start_orig_scheduler(void) {
 	
 	set_need_resched();
 	
+	//@TODO maybe add a log for the change in policies?
+	
 	lottery_enabled = 0;
 	
 	rq_unlock(rq);
@@ -2129,6 +2132,8 @@ void set_max_tickets(int max_tickets) {
 	rq->active->max_tickets = max_tickets;
 	
 	set_need_resched();
+	
+	//@TODO maybe add a log for the change in NT?
 	
 	rq_unlock(rq);
 	
