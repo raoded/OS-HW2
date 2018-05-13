@@ -1225,7 +1225,8 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	rq = task_rq_lock(p, &flags);
 
 	if (policy < 0)
-		policy = p->policy;
+		//hw2 made it consider the origianl policy for priority changes
+		policy = lottery_enabled ? p->orig_policy : p->policy;
 	else {
 		retval = -EINVAL;
 		//hw2 change in the last condition (should not change policy when lottery is enabled)
@@ -1241,13 +1242,9 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	retval = -EINVAL;
 	if (lp.sched_priority < 0 || lp.sched_priority > MAX_USER_RT_PRIO-1)
 		goto out_unlock;
-	if ((policy == SCHED_OTHER) != (lp.sched_priority == 0))
+	//hw2 changes in first condition
+	if (((policy == SCHED_OTHER && !lottery_enabled) || ()) != (lp.sched_priority == 0))
 		goto out_unlock;
-	//hw2 start
-	//let's forbid changes between real time priorities and normal ones
-	if(change_rt_normal(lp.sched_priority, p->priority) && lottery_enabled)
-		goto out_unlock;
-	//hw2 end
 
 	retval = -EPERM;
 	if ((policy == SCHED_FIFO || policy == SCHED_RR) &&
@@ -1257,6 +1254,12 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	    !capable(CAP_SYS_NICE))
 		goto out_unlock;
 
+	//hw2 start
+	//return policy var to correct value
+	if(lottery_enabled)
+		policy = p->policy;
+	//hw2 end	
+	
 	array = p->array;
 	if (array)
 		deactivate_task(p, task_rq(p));
