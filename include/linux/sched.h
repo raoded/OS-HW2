@@ -1040,15 +1040,15 @@ static inline int NT(array_t* array){
 	return min_num((array)->num_tickets, ((array)->max_tickets <= 0) ? (array)->num_tickets : (array)->max_tickets);
 }
 
-static inline cs_log make_log(pid_t* prev, pid_t* next){
-	cs_log log = 	{.prev = *(prev),
-					 .next = *(next),
+static inline cs_log make_log(task_t *prev, task_t *next){
+	cs_log log = 	{.prev = (prev)->pid,
+					 .next = (next)->pid,
 					 .prev_priority = (prev)->prio,
 					 .next_priority = (next)->prio,
 					 .prev_policy = (prev)->policy,
 					 .next_policy = (next)->policy,
 					 .switch_time = jiffies,
-					 .n_tickets = lottery_enabled ? NT((next)->array) : 0;
+					 .n_tickets = lottery_enabled ? NT((next)->array) : 0
 					};
 	return log;
 }
