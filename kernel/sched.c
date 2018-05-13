@@ -2088,13 +2088,6 @@ int start_lottery_scheduler(void) {
 	
 	lottery_enabled = 1;
 	
-	//@TODO maybe add a log for the change in policies?
-	/* IMPLEMENTATION SUGGESTION
-	cs_log log = make_log(current, current);
-	log.prev_policy = current->orig_policy;
-	add_to_logger(log);
-	*/
-	
 	rq_unlock(rq);
 	
 	return 0;
@@ -2111,13 +2104,6 @@ int start_orig_scheduler(void) {
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
 	
-	/*
-	for each task{
-		restore old policy
-		recalculate time slice
-	}
-	*/
-	
 	task_t *p;
 	
 	for_each_task(p){
@@ -2128,13 +2114,6 @@ int start_orig_scheduler(void) {
 	set_need_resched();
 	
 	lottery_enabled = 0;
-	
-	//@TODO maybe add a log for the change in policies?
-	/* IMPLEMENTATION SUGGESTION
-	cs_log log = make_log(current, current);
-	log.prev_policy = SCHED_LOTTERY;
-	add_to_logger(log);
-	*/
 	
 	rq_unlock(rq);
 	
@@ -2150,12 +2129,6 @@ void set_max_tickets(int max_tickets) {
 	rq->active->max_tickets = max_tickets;
 	
 	set_need_resched();
-	
-	//@TODO maybe add a log for the change in NT?
-	/* IMPLEMENTATION SUGGESTION
-	cs_log log = make_log(current, current);
-	add_to_logger(log);
-	*/
 	
 	rq_unlock(rq);
 	
