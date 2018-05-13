@@ -770,7 +770,8 @@ void scheduler_tick(int user_tick, int system)
 		return;
 	}
 	spin_lock(&rq->lock);
-	if (unlikely(rt_task(p))) {
+	//hw2 condition added
+	if (unlikely(rt_task(p)) && !lottery_enabled) {
 		/*
 		 * RR tasks need a special form of timeslice management.
 		 * FIFO tasks have no timeslices.
@@ -892,8 +893,8 @@ pick_next_task:
 	} else {
 		//get a random number in the correct range
 		do {
-			get_random_bytes(&rand_ticket, sizeof(int));
-		} while(rand_ticket > mod_limit(NT(array)));
+			get_random_bytes(&rand_ticket, sizeof(unsigned int));
+		} while(rand_ticket >= mod_limit(NT(array)));
 		
 		ticket_sum = (int)(rand_ticket % (NT(array)));
 		
@@ -911,8 +912,9 @@ pick_next_task:
 				
 				if(ticket_sum < 0){
 					next = cur;
+					break;	//no need to go for the rest of the queue
 				}
-			} else break;	//no need to go for the rest of the queue
+			}
 		}
 	}
 	//hw2 end
@@ -1242,8 +1244,7 @@ static int setscheduler(pid_t pid, int policy, struct sched_param *param)
 	retval = -EINVAL;
 	if (lp.sched_priority < 0 || lp.sched_priority > MAX_USER_RT_PRIO-1)
 		goto out_unlock;
-	//hw2 changes in first condition
-	if (((policy == SCHED_OTHER && !lottery_enabled) || ()) != (lp.sched_priority == 0))
+	if ((policy == SCHED_OTHER) != (lp.sched_priority == 0))
 		goto out_unlock;
 
 	retval = -EPERM;
@@ -1463,11 +1464,6 @@ asmlinkage long sys_sched_yield(void)
 	}
 	
 	//update new structures
-	//@TODO maybe we should do this even when the lottery is not enabled
-	/*I think that updating every process when enabeling is quite finite proccess and a fast one
-	  so in these terms, doing the update of tickets even with the LOTTERY not enabled is expensive.
-	  In this homework it doesn't really matter, I guess. If its easy and works then we'll keep it.
-	*/
 	--(array->num_procs[p->prio]);
 	array->num_tickets -= prio_tickets(p->prio);
 	
