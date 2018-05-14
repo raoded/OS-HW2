@@ -468,13 +468,6 @@ asmlinkage void schedule_tail(task_t *prev)
 
 static inline task_t * context_switch(task_t *prev, task_t *next)
 {
-	//hw2 start
-	if(logs.logger_enabled){
-		cs_log n_log = make_log(prev, next);
-		add_to_logger(n_log);
-	}
-	//hw2 end
-	
 	struct mm_struct *mm = next->mm;
 	struct mm_struct *oldmm = prev->active_mm;
 
@@ -922,6 +915,13 @@ pick_next_task:
 switch_tasks:
 	prefetch(next);
 	clear_tsk_need_resched(prev);
+	
+	//hw2 start
+	if(logs.logger_enabled){
+		cs_log n_log = make_log(prev, next);
+		add_to_logger(n_log);
+	}
+	//hw2 end
 
 	if (likely(prev != next)) {
 		rq->nr_switches++;
