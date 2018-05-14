@@ -1718,7 +1718,7 @@ void __init sched_init(void)
 		INIT_LIST_HEAD(&rq->migration_queue);
 		
 		//hw2 start
-		for(int k=0;k<MAX_PRIO;++k){
+		for(k=0;k<MAX_PRIO;++k){
 			rq->active->num_procs[k] = 0;
 			rq->expired->num_procs[k] = 0;
 		}
