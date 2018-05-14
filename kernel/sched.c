@@ -1718,11 +1718,15 @@ void __init sched_init(void)
 		INIT_LIST_HEAD(&rq->migration_queue);
 		
 		//hw2 start
-		rq->active->num_procs = {0};		
+		for(int k=0;k<MAX_PRIO;++k){
+			rq->active->num_procs[k] = 0;
+			rq->expired->num_procs[k] = 0;
+		}
+		//rq->active->num_procs = {0};		
 		rq->active->num_tickets = 0;
 		rq->active->max_tickets = 0;
 		
-		rq->expired->num_procs = {0};		
+		//rq->expired->num_procs = {0};		
 		rq->expired->num_tickets = 0;
 		rq->expired->max_tickets = 0;
 		//hw2 end
@@ -2047,7 +2051,7 @@ int sys_get_logger_records(cs_log* user_mem) {
         return -ENOMEM;
     }
 	
-	logger_next_index = 0;
+	logs.logger_next_index = 0;
 	
 	return 0;
 }
@@ -2082,7 +2086,7 @@ int start_lottery_scheduler(void) {
 		p->policy = SCHED_LOTTERY;
 		p->time_slice = MAX_TIMESLICE;
 		
-		if(task->array == rq->expired){
+		if(p->array == rq->expired){
 			dequeue_task(p, rq->expired);
 			enqueue_task(p, rq->active);
 		}
