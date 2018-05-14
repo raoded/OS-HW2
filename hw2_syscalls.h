@@ -14,6 +14,7 @@ typedef struct {
  int prev_policy;
  int next_policy;
  long switch_time;
+ int n_tickets;
 } cs_log;
 
 int enable_logging(int size) {
