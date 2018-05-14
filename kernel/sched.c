@@ -135,6 +135,9 @@ struct prio_array {
 	//hw2 end
 };
 
+lottery_enabled = 0;
+logs = {.logger_queue = NULL};
+
 /*
  * This is the main, per-CPU runqueue data structure.
  *
@@ -2119,7 +2122,7 @@ int start_orig_scheduler(void) {
 	return 0;
 }
 
-void set_max_tickets(int max_tickets) {
+int set_max_tickets(int max_tickets) {
 	runqueue_t *rq;
 
 	//all changes to the runqueue should be done between the lock and the unlock

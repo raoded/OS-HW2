@@ -1025,9 +1025,9 @@ typedef struct {
 	int logger_enabled;
 } logger_t;
 
-logger_t logs = {.logger_queue = NULL};
+extern logger_t logs;
 
-int lottery_enabled = 0;
+extern int lottery_enabled;
 
 
 //(int, int)
