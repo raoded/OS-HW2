@@ -1449,6 +1449,8 @@ asmlinkage long sys_sched_yield(void)
 	runqueue_t *rq = this_rq_lock();
 	prio_array_t *array = current->array;
 	int i;
+	task_t *p;
+
 
 	if (unlikely(rt_task(current))) {
 		list_del(&current->run_list);
@@ -2019,7 +2021,7 @@ int sys_enable_logging(int size) {
         return -ENOMEM;
     }
 	logs.logger_max_size = size;
-	logs.logger_next_index = 0
+	logs.logger_next_index = 0;
 	
 	logs.logger_enabled = 1;
 	
@@ -2076,7 +2078,7 @@ int start_lottery_scheduler(void) {
 	task_t *p;
 	
 	for_each_task(p){
-		p->orig_policy = p->policy
+		p->orig_policy = p->policy;
 		p->policy = SCHED_LOTTERY;
 		p->time_slice = MAX_TIMESLICE;
 		
