@@ -135,8 +135,8 @@ struct prio_array {
 	//hw2 end
 };
 
-lottery_enabled = 0;
-logs = {.logger_queue = NULL};
+int lottery_enabled = 0;
+logger_t logs = {.logger_queue = NULL};
 
 /*
  * This is the main, per-CPU runqueue data structure.
