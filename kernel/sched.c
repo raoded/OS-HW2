@@ -2068,6 +2068,8 @@ int sys_disable_logging () {
 }
 
 int sys_get_logger_records(cs_log* user_mem) {
+	int retval;
+	
 	if(user_mem == NULL) {
 		return -ENOMEM;
 	}
@@ -2075,10 +2077,12 @@ int sys_get_logger_records(cs_log* user_mem) {
 	if(copy_to_user(user_mem, logs.logger_queue, logs.logger_next_index * sizeof(cs_log) )){ //return 0 on sucess
         return -ENOMEM;
     }
+
+	retval = logs.logger_next_index;
 	
 	logs.logger_next_index = 0;
 	
-	return 0;
+	return retval;
 }
 
 int sys_start_lottery_scheduler(void) {
