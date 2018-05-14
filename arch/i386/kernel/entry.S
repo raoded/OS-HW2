@@ -657,6 +657,7 @@ ENTRY(sys_call_table)
 	.long SYMBOL_NAME(sys_start_lottery_scheduler) /*246 hw2*/
 	.long SYMBOL_NAME(sys_start_orig_scheduler) /*247 hw2*/
 	.long SYMBOL_NAME(sys_set_max_tickets) /*248 hw2*/
+	.long SYMBOL_NAME(sys_print_pool_level) /*249 hw2*/
 	/* hw2 changes end */
 	
 	.rept NR_syscalls-(.-sys_call_table)/4

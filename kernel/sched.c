@@ -174,6 +174,31 @@ static struct runqueue runqueues[NR_CPUS] __cacheline_aligned;
 # define finish_arch_switch(rq)		spin_unlock_irq(&(rq)->lock)
 #endif
 
+//hw2 test
+void sys_print_pool_level(){
+	printk("active level is empty!");
+	int level = 0;
+    struct list_head* pos;
+    runqueue_t *rq = this_rq();
+	list_t* level_list;
+    int pid; 
+	int i;
+	for(i=0;i<MAX_PRIO;i++){
+		level_list= (rq->active->queue);       //pool level list to print
+		if(list_empty(level_list)){
+		  printk("\n active level %d is empty! :(\n",level);
+		} else {
+			printk("\n active level %d : ",level);
+			list_for_each(pos,level_list){
+				pid=list_entry(pos,task_t,run_list)->pid;
+				printk("(%d)->",pid);
+			}
+			printk("\n");
+			
+		}
+	}
+}
+
 /*
  * task_rq_lock - lock the runqueue a given task resides on and disable
  * interrupts.  Note the ordering: we can safely lookup the task_rq without
@@ -2056,7 +2081,7 @@ int sys_get_logger_records(cs_log* user_mem) {
 	return 0;
 }
 
-int start_lottery_scheduler(void) {
+int sys_start_lottery_scheduler(void) {
 	runqueue_t *rq;
 	
 	//check if its already enabled
@@ -2101,7 +2126,7 @@ int start_lottery_scheduler(void) {
 	return 0;
 }
 
-int start_orig_scheduler(void) {
+int sys_start_orig_scheduler(void) {
 	runqueue_t *rq;
 	
 	//check if its already the original
@@ -2128,7 +2153,7 @@ int start_orig_scheduler(void) {
 	return 0;
 }
 
-int set_max_tickets(int max_tickets) {
+int sys_set_max_tickets(int max_tickets) {
 	runqueue_t *rq;
 
 	//all changes to the runqueue should be done between the lock and the unlock

@@ -92,13 +92,25 @@ int start_orig_scheduler() {
 }
 
 void set_max_tickets(int max_tickets) {
+	int __res;
 	if(max_tickets<1) {
 		return;
 	}
 	
 	__asm__(
 	"int $0x80;"
+	: "=a" (__res)
 	: "0" (248), "b" (max_tickets)
+	: "memory"
+	);
+}
+
+void print_pool_level() {
+	int __res;
+	__asm__(
+	"int $0x80;"
+	: "=a" (__res)
+	: "0" (249)
 	: "memory"
 	);
 }
