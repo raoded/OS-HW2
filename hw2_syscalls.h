@@ -10,7 +10,7 @@ typedef struct {
  pid_t prev;
  pid_t next;
  int prev_priority;
- int next_prioroty;
+ int next_priority;
  int prev_policy;
  int next_policy;
  long switch_time;
