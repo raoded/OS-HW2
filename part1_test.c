@@ -155,11 +155,7 @@ bool test_get_logger_records() {
 	ASSERT_TEST(log[0].prev_policy == SCHED_FIFO);
 	ASSERT_TEST(log[0].next_policy == SCHED_FIFO);
 	ASSERT_TEST(log[1].prev == parent_pid);
-	printf("parent: %d\n",parent_pid);
-	printf("first: %d\n",first_child_pid);
-	printf("second: %d\n",second_child_pid);
-	printf("log[1].next: %d\n",log[1].next);
-	printf("log[2].next: %d\n",log[2].next);
+	
 	ASSERT_TEST(log[1].next == second_child_pid);
 	ASSERT_TEST(log[1].prev_priority == 79);
 	ASSERT_TEST(log[1].next_priority == 69);

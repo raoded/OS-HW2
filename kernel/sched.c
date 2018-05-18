@@ -918,7 +918,7 @@ pick_next_task:
 			get_random_bytes(&rand_ticket, sizeof(unsigned int));
 		} while(rand_ticket >= mod_limit(NT(array)));
 		
-		ticket_sum = (int)(rand_ticket % (NT(array)));
+		ticket_sum = (int)(rand_ticket % ((unsigned int)(NT(array))));
 		
 		//find the queue that has the right ticket
 		for(;ticket_sum - queue_tickets(idx, array->num_procs[idx]) >= 0; ++idx){
@@ -2073,7 +2073,7 @@ int sys_get_logger_records(cs_log* user_mem) {
 	if(user_mem == NULL) {
 		return -ENOMEM;
 	}
-	
+
 	if(copy_to_user(user_mem, logs.logger_queue, logs.logger_next_index * sizeof(cs_log) )){ //return 0 on sucess
         return -ENOMEM;
     }
