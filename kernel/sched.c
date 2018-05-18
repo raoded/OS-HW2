@@ -796,19 +796,21 @@ void scheduler_tick(int user_tick, int system)
 	}
 	spin_lock(&rq->lock);
 	//hw2 condition added
-	if (unlikely(rt_task(p)) && !lottery_enabled) {
+	if (unlikely(rt_task(p))) {
 		/*
 		 * RR tasks need a special form of timeslice management.
 		 * FIFO tasks have no timeslices.
 		 */
-		if ((p->policy == SCHED_RR) && !--p->time_slice) {
-			p->time_slice = TASK_TIMESLICE(p);
+		if ((p->policy == SCHED_RR || lottery_enabled) && !--p->time_slice) {
+			p->time_slice = lottery_enabled ? MAX_TIMESLICE : TASK_TIMESLICE(p);
 			p->first_time_slice = 0;
 			set_tsk_need_resched(p);
 
 			/* put it at the end of the queue: */
-			dequeue_task(p, rq->active);
-			enqueue_task(p, rq->active);
+			if(p->policy == SCHED_RR) {
+				dequeue_task(p, rq->active);
+				enqueue_task(p, rq->active);
+			}
 		}
 		goto out;
 	}
