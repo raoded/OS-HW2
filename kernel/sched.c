@@ -252,8 +252,10 @@ static inline void dequeue_task(struct task_struct *p, prio_array_t *array)
 	array->nr_active--;
 	//hw2 start
 	//update new structures
-	--(array->num_procs[p->prio]);
-	array->num_tickets -= prio_tickets(p->prio);
+	if(lottery_enabled) {
+		--(array->num_procs[p->prio]);
+		array->num_tickets -= prio_tickets(p->prio);
+	}
 	//hw2 end
 	list_del(&p->run_list);
 	if (list_empty(array->queue + p->prio))
@@ -265,8 +267,10 @@ static inline void enqueue_task(struct task_struct *p, prio_array_t *array)
 	list_add_tail(&p->run_list, array->queue + p->prio);
 	//hw2 start
 	//update new structures
-	++(array->num_procs[p->prio]);
-	array->num_tickets += prio_tickets(p->prio);
+	if(lottery_enabled) {
+		++(array->num_procs[p->prio]);
+		array->num_tickets += prio_tickets(p->prio);
+	}
 	//hw2 end
 	__set_bit(p->prio, array->bitmap);
 	array->nr_active++;
@@ -1494,8 +1498,10 @@ asmlinkage long sys_sched_yield(void)
 	}
 	
 	//update new structures
-	--(array->num_procs[p->prio]);
-	array->num_tickets -= prio_tickets(p->prio);
+	if(lottery_enabled) {
+		--(array->num_procs[p->prio]);
+		array->num_tickets -= prio_tickets(p->prio);
+	}
 	
 	__clear_bit(current->prio, array->bitmap);
 
@@ -1508,8 +1514,10 @@ asmlinkage long sys_sched_yield(void)
 
 	list_add(&current->run_list, array->queue[i].next);
 	//update new structures
-	++(array->num_procs[i]);
-	array->num_tickets += prio_tickets(i);
+	if(lottery_enabled) {
+		++(array->num_procs[i]);
+		array->num_tickets += prio_tickets(i);
+	}
 	
 	//hw2 end
 	__set_bit(i, array->bitmap);
@@ -2087,14 +2095,17 @@ int sys_get_logger_records(cs_log* user_mem) {
 
 int sys_start_lottery_scheduler(void) {
 	runqueue_t *rq;
+	task_t *p;
+	int i;
 	
-	//check if its already enabled
-	if(lottery_enabled){
-		return -EINVAL;
-	}
 	
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
+		
+	//check if its already enabled
+	if(lottery_enabled){
+		return -EINVAL;
+	}		
 	
 	/*
 	for each task{
@@ -2108,7 +2119,12 @@ int sys_start_lottery_scheduler(void) {
 	}
 	*/
 	
-	task_t *p;
+	rq->active->num_tickets = 0;
+	rq->expired->num_tickets = 0;
+	for(i=0; i<MAX_PRIO; ++i) {
+		(rq->active->num_procs)[i] = 0;
+		(rq->expired->num_procs)[i] = 0;
+	}
 	
 	for_each_task(p){
 		p->orig_policy = p->policy;
@@ -2118,6 +2134,11 @@ int sys_start_lottery_scheduler(void) {
 		if(p->array == rq->expired){
 			dequeue_task(p, rq->expired);
 			enqueue_task(p, rq->active);
+		}
+		
+		if(p->array == rq->active) {
+			++(rq->active->num_procs[p->prio]);
+			rq->active->num_tickets += prio_tickets(p->prio);
 		}
 	}
 	
@@ -2133,13 +2154,13 @@ int sys_start_lottery_scheduler(void) {
 int sys_start_orig_scheduler(void) {
 	runqueue_t *rq;
 	
+	//all changes to the runqueue should be done between the lock and the unlock
+	rq = this_rq_lock();
+	
 	//check if its already the original
 	if(!lottery_enabled){
 		return -EINVAL;
 	}
-	
-	//all changes to the runqueue should be done between the lock and the unlock
-	rq = this_rq_lock();
 	
 	task_t *p;
 	

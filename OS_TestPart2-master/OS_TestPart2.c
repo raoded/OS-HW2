@@ -19,38 +19,27 @@
 
 bool test_start_lottery_orig_scheduler() {
 
-	printf("first disable_logging\n");
   	disable_logging();
-	printf("first start_orig_scheduler\n");
    	start_orig_scheduler();
-	printf("first start_lottery_scheduler\n");
 	ASSERT_TEST(start_lottery_scheduler() == 0);
 
 	struct sched_param param;
 	param.sched_priority = 30;
-	printf("trying setsched\n");
 	ASSERT_TEST(sched_setscheduler(getpid(), SCHED_OTHER, &param) == -1);
 	ASSERT_TEST(sched_setscheduler(getpid(), SCHED_FIFO, &param) == -1);
 	ASSERT_TEST(sched_setscheduler(getpid(), SCHED_RR, &param) == -1);
 	ASSERT_TEST(sched_setscheduler(getpid(), SCHED_LOTTERY, &param) == -1);
 
-	printf("second start_lottery_scheduler\n");
 	ASSERT_TEST(start_lottery_scheduler() == -1 && errno == EINVAL);
 
-	printf("second start_orig_scheduler\n");
 	ASSERT_TEST(start_orig_scheduler() == 0);
 
-	printf("original setsched\n");
 	ASSERT_TEST(sched_setscheduler(getpid(), SCHED_LOTTERY, &param) == -1);
-	printf("third start_orig_scheduler\n");
 	ASSERT_TEST(start_orig_scheduler() == -1 && errno == EINVAL);
-
-	printf("started stress\n");
 	
 	int i = 0;
 	int user_mem[3] = {0, 0, 0};
 	for (i = 0; i < TEST_SIZE; i++) {
-		printf("iteration: %d\n", i);
 		ASSERT_TEST(start_lottery_scheduler() == 0);
 		ASSERT_TEST(start_lottery_scheduler() == -1 && errno == EINVAL);
 		ASSERT_TEST(start_orig_scheduler() == 0);
@@ -66,13 +55,24 @@ bool test_log_lottery() {
 	int parent_pid = getpid();
 	struct sched_param param;
 	param.sched_priority = 29; //prio = 70, num_of_tickets = 70
+	
+	
 	sched_setscheduler(parent_pid, SCHED_FIFO, &param);
+	
 	set_max_tickets(MAX_TICKETS);
+	
 	int child_pid = fork();
+	
 	param.sched_priority = 9; //prio = 90, num_of_tickets = 50
+	
 	sched_setscheduler(child_pid, SCHED_FIFO, &param);
 	enable_logging(LOG_SIZE);
 	start_lottery_scheduler();
+	
+	if(child_pid != 0) {
+		printf("before loop\n");
+	}
+	
 	//just a triple loop to make the processes run and perform context switches between them :)
 	int i, j, k;
 	for (i = 0; i < TEST_SIZE; ++i) {
@@ -83,6 +83,7 @@ bool test_log_lottery() {
 	   }
 	}
 	if (child_pid == 0) {
+		printf("chiled left\n");
 	   exit(0);
 	}
 	wait(NULL);
