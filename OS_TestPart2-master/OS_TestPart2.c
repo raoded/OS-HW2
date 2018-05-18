@@ -69,7 +69,7 @@ bool test_log_lottery() {
 	enable_logging(LOG_SIZE);
 	start_lottery_scheduler();
 	
-	if(child_pid != 0) {
+	if(child_pid == 0) {
 		printf("before loop\n");
 	}
 	

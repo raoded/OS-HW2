@@ -1032,7 +1032,7 @@ extern int lottery_enabled;
 
 //(int, int)
 static inline int min_num(int num1, int num2){
-	return (((num1) > (num2)) ? (num1) : (num2));
+	return (((num1) < (num2)) ? (num1) : (num2));
 }
 
 //(prio_array_t)

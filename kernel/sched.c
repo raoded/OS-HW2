@@ -917,6 +917,8 @@ pick_next_task:
 		queue = array->queue + idx;
 		next = list_entry(queue->next, task_t, run_list);
 	} else {
+		//printk("schedule: actual ticket num is %d, max ticket num is %d ,NT is: %d\n",array->num_tickets, array->max_tickets, NT(array));
+		
 		//get a random number in the correct range
 		do {
 			get_random_bytes(&rand_ticket, sizeof(unsigned int));
@@ -924,24 +926,32 @@ pick_next_task:
 		
 		ticket_sum = (int)(rand_ticket % ((unsigned int)(NT(array))));
 		
+		//printk("schedule: ticket_sum = %d\n", ticket_sum);
+		
 		//find the queue that has the right ticket
 		for(;ticket_sum - queue_tickets(idx, array->num_procs[idx]) >= 0; ++idx){
 			ticket_sum -= queue_tickets(idx, array->num_procs[idx]);
+			//printk("schedule: prio_q %d has %d procs and %d tickets, ticket_sum changed to %d\n",
+			//idx,array->num_procs[idx],queue_tickets(idx, array->num_procs[idx]),ticket_sum);
 		}
+		
+		//printk("schedule: correct prio_q is %d, ticket_sum is %d\n",idx,ticket_sum);
 		
 		//find the process that has the right ticket (set next to it)
 		queue = array->queue + idx;
 		list_for_each(node, queue) {
 			if(ticket_sum >= 0){
 				ticket_sum -= prio_tickets(idx);
-				
+				//printk("schedule: ticket_sum is %d\n",ticket_sum);
 				if(ticket_sum < 0){
 					next = list_entry(node, task_t, run_list);
+					//printk("schedule: next proc found\n");
 					break;	//no need to go for the rest of the queue
 				}
 			}
 		}
 	}
+	
 	//hw2 end
 
 switch_tasks:
