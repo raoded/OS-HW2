@@ -1,0 +1,300 @@
+Log size: 100
+log[0]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14898870 
+
+Log size: 100
+log[1]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899023 
+
+Log size: 100
+log[2]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899176 
+
+Log size: 100
+log[3]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899329 
+
+Log size: 100
+log[4]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899482 
+
+Log size: 100
+log[5]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899635 
+
+Log size: 100
+log[6]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899788 
+
+Log size: 100
+log[7]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14899941 
+
+Log size: 100
+log[8]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14900094 
+
+Log size: 100
+log[9]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14900247 
+
+Log size: 100
+log[10]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14900400 
+
+Log size: 100
+log[11]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14900553 
+
+Log size: 100
+log[12]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14900706 
+
+Log size: 100
+log[13]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14900859 
+
+Log size: 100
+log[14]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901012 
+
+Log size: 100
+log[15]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901165 
+
+Log size: 100
+log[16]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901318 
+
+Log size: 100
+log[17]: prev = 8404, next = 8404, prev_priority = 90, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901471 
+
+Log size: 100
+log[18]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901624 
+
+Log size: 100
+log[19]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901777 
+
+Log size: 100
+log[20]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14901930 
+
+Log size: 100
+log[21]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14902083 
+
+Log size: 100
+log[22]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14902236 
+
+Log size: 100
+log[23]: prev = 8404, next = 8404, prev_priority = 90, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14902389 
+
+Log size: 100
+log[24]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14902542 
+
+Log size: 100
+log[25]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14902695 
+
+Log size: 100
+log[26]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14902848 
+
+Log size: 100
+log[27]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903001 
+
+Log size: 100
+log[28]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903154 
+
+Log size: 100
+log[29]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903307 
+
+Log size: 100
+log[30]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903460 
+
+Log size: 100
+log[31]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903613 
+
+Log size: 100
+log[32]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903766 
+
+Log size: 100
+log[33]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14903919 
+
+Log size: 100
+log[34]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904072 
+
+Log size: 100
+log[35]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904225 
+
+Log size: 100
+log[36]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904378 
+
+Log size: 100
+log[37]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904531 
+
+Log size: 100
+log[38]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904684 
+
+Log size: 100
+log[39]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904837 
+
+Log size: 100
+log[40]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14904991 
+
+Log size: 100
+log[41]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14905144 
+
+Log size: 100
+log[42]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14905296 
+
+Log size: 100
+log[43]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14905450 
+
+Log size: 100
+log[44]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14905602 
+
+Log size: 100
+log[45]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14905755 
+
+Log size: 100
+log[46]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14905908 
+
+Log size: 100
+log[47]: prev = 8404, next = 8404, prev_priority = 90, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906061 
+
+Log size: 100
+log[48]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906214 
+
+Log size: 100
+log[49]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906367 
+
+Log size: 100
+log[50]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906520 
+
+Log size: 100
+log[51]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906673 
+
+Log size: 100
+log[52]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906826 
+
+Log size: 100
+log[53]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14906979 
+
+Log size: 100
+log[54]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14907132 
+
+Log size: 100
+log[55]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14907285 
+
+Log size: 100
+log[56]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14907438 
+
+Log size: 100
+log[57]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14907591 
+
+Log size: 100
+log[58]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14907744 
+
+Log size: 100
+log[59]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14907897 
+
+Log size: 100
+log[60]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908050 
+
+Log size: 100
+log[61]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908203 
+
+Log size: 100
+log[62]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908356 
+
+Log size: 100
+log[63]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908509 
+
+Log size: 100
+log[64]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908662 
+
+Log size: 100
+log[65]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908815 
+
+Log size: 100
+log[66]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14908968 
+
+Log size: 100
+log[67]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14909121 
+
+Log size: 100
+log[68]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14909274 
+
+Log size: 100
+log[69]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14909428 
+
+Log size: 100
+log[70]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14909581 
+
+Log size: 100
+log[71]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14909734 
+
+Log size: 100
+log[72]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14909887 
+
+Log size: 100
+log[73]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910040 
+
+Log size: 100
+log[74]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910192 
+
+Log size: 100
+log[75]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910345 
+
+Log size: 100
+log[76]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910498 
+
+Log size: 100
+log[77]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910651 
+
+Log size: 100
+log[78]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910804 
+
+Log size: 100
+log[79]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14910957 
+
+Log size: 100
+log[80]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14911110 
+
+Log size: 100
+log[81]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14911263 
+
+Log size: 100
+log[82]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14911416 
+
+Log size: 100
+log[83]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14911569 
+
+Log size: 100
+log[84]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14911722 
+
+Log size: 100
+log[85]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14911875 
+
+Log size: 100
+log[86]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912028 
+
+Log size: 100
+log[87]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912181 
+
+Log size: 100
+log[88]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912334 
+
+Log size: 100
+log[89]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912487 
+
+Log size: 100
+log[90]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912640 
+
+Log size: 100
+log[91]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912793 
+
+Log size: 100
+log[92]: prev = 8404, next = 8404, prev_priority = 90, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14912946 
+
+Log size: 100
+log[93]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14913099 
+
+Log size: 100
+log[94]: prev = 8403, next = 8404, prev_priority = 70, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14913252 
+
+Log size: 100
+log[95]: prev = 8404, next = 8404, prev_priority = 90, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14913405 
+
+Log size: 100
+log[96]: prev = 8404, next = 8404, prev_priority = 90, next_priority ~90~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14913558 
+
+Log size: 100
+log[97]: prev = 8404, next = 8403, prev_priority = 90, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14913711 
+
+Log size: 100
+log[98]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14913864 
+
+Log size: 100
+log[99]: prev = 8403, next = 8403, prev_priority = 70, next_priority ~70~, prev_policy = 3, next_policy = 3, n_tickets = 100, switch_time = 14914017 
+

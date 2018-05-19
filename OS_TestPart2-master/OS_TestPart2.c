@@ -14,7 +14,7 @@
 
 #define MAXSTRING 255
 #define TEST_SIZE 10000
-#define LOG_SIZE 500
+#define LOG_SIZE 100
 #define MAX_TICKETS 100
 
 bool test_start_lottery_orig_scheduler() {
@@ -90,14 +90,14 @@ bool test_log_lottery() {
 	ASSERT_TEST(disable_logging() == 0);
 	ASSERT_TEST(start_orig_scheduler() == 0);
 	int logger_records_size = get_logger_records(log);
-	FILE *stream = fopen("stream.txt", "w");
+	FILE *stream = fopen("stream.csv", "w");
 	if (!stream) {
-	   printf("Cannot open stream.txt!\n");
+	   printf("Cannot open stream.csv!\n");
 	   return false;
 	}
-	FILE *stream_log = fopen("stream_log.txt", "w");
+	FILE *stream_log = fopen("stream_log.csv", "w");
 	if (!stream_log) {
-	   printf("Cannot open stream_log.txt!");
+	   printf("Cannot open stream_log.csv!");
 	}
 	for (i = 0; i < logger_records_size; i++) {
 	  fprintf(stream_log, "Log size: %d\n", logger_records_size);
@@ -106,9 +106,9 @@ bool test_log_lottery() {
 	}
 	fclose(stream);
 	fclose(stream_log);
-	stream = fopen("stream.txt", "r");
+	stream = fopen("stream.csv", "r");
 	if (!stream) {
-	   printf("Cannot open stream.txt!\n");
+	   printf("Cannot open stream.csv!\n");
 	   return false;
 	}
 	char line[3];
