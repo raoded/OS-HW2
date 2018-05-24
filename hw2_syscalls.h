@@ -106,14 +106,4 @@ void set_max_tickets(int max_tickets) {
 	);
 }
 
-void print_pool_level() {
-	int __res;
-	__asm__(
-	"int $0x80;"
-	: "=a" (__res)
-	: "0" (249)
-	: "memory"
-	);
-}
-
 #endif
