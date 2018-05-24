@@ -2196,7 +2196,9 @@ int sys_set_max_tickets(int max_tickets) {
 	//all changes to the runqueue should be done between the lock and the unlock
 	rq = this_rq_lock();
 	
+	//update both in case they are swapped later
 	rq->active->max_tickets = max_tickets;
+	rq->expired->max_tickets = max_tickets;
 	
 	set_need_resched();
 	
